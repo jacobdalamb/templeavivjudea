@@ -1,7 +1,7 @@
 {
   "name": "templeavivjudea",
   "type": "module",
-  "version": "2024.01.15",
+  "version": "2024.01.16",
   "private": true,
   "description": "",
   "license": "MIT",
@@ -27,7 +27,7 @@
     "lint:fix": "biome lint --apply .",
     "check-format": "prettier --check . && biome check .",
     "check-format:fix": "biome check --apply .",
-    "precommit": "bun run check-format && ./updateVersion.zsh && bun run lint && knip"
+    "precommit": "bun run check-format && zx ./updateVersion.mjs && bun run lint && knip"
   },
   "dependencies": {
     "@astrojs/check": "0.4.1",
