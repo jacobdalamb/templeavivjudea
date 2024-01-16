@@ -1,0 +1,60 @@
+---
+import "../styles/index.css";
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: URL;
+}
+
+const { title, description } = Astro.props;
+
+let ogImage = Astro.props.ogImage;
+
+const completeTitle = `${title}${title ? " • " : ""}Temple Aviv Judea`;
+if (!ogImage) {
+  ogImage = new URL("/v1/generate/og/default.png", Astro.url);
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{completeTitle}</title>
+  </head>
+  <body>
+    <slot />
+    <footer>
+      <a href="https://www.facebook.com/templeavivjudea/" class="button"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-facebook"
+          ><path
+            d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+          ></path></svg
+        >
+        <span set:text="Follow us on Facebook" />
+      </a>
+      <small>
+        <span set:text="©" />
+        <time
+          datetime=`${new Date().getFullYear()}`
+          set:text=`${new Date().getFullYear()}`
+        />
+        <span set:text="Temple Aviv Judea" />
+      </small>
+    </footer>
+  </body>
+</html>
