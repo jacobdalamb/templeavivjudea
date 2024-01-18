@@ -48,7 +48,7 @@ const props = {
       <div class="card">
         <div>
           <h3 set:text="Service" />
-          <time datetime="" set:text="21 January 2024" />
+          <time datetime="" set:text="21 January 2024  •  11:00" />
         </div>
         <div>
           <!-- <p>Location: Central Park</p> -->
@@ -56,20 +56,29 @@ const props = {
           <br />
           <a href="" class="button" set:text="Watch on YouTube" />
         </div>
-        <details>
-          <summary set:text="Hador-haba Meeting" />
+        <details name="accordion">
+          <summary
+            ><span set:text="Hador-haba Meeting" />
+             • 
+            <time datetime="" set:text="14:00" /></summary
+          >
           <p
             set:text="Our youth group gathers after service for a comprehensive and engaging Bible discussion."
           />
         </details>
-        <details>
-          <summary set:text="Morning Prayer" />
+        <details name="accordion">
+          <summary
+            ><span set:text="Morning Prayer" />  •  <time
+              datetime=""
+              set:text="10:00"
+            /></summary
+          >
           <p
             set:text="A special time before service for members and visitors to pray together for the peace of Jerusalem as well as special prayer requests."
           />
         </details>
-        <details>
-          <summary set:text="Children" />
+        <details name="accordion">
+          <summary set:text="Children  •  During Service" />
           <p
             set:text="Children have a special time during the service where they are taught important lessons from G-d."
           />

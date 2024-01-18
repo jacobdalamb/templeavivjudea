@@ -135,7 +135,7 @@ a,
   border-radius: var(--radius-2);
   box-shadow: var(--shadow-2);
 
-  > div {
-    padding: var(--size-5);
+  > * {
+    margin: var(--size-5);
   }
 }
