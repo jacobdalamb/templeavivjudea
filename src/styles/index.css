@@ -28,7 +28,7 @@ body {
   gap: var(--size-8);
 }
 
-:is(h1, h2, h3) ~ *,
+:is(h1, h2, h3) + *,
 :is(*) ~ :is(h1, h2, h3) {
   margin-block-start: var(--size-5);
 }
