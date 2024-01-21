@@ -21,12 +21,42 @@ const props = {
       set:text="Come visit us! We are located in Fullerton, CA. We worship the L-RD on Shabbat and we are committed to the Good News of Messiah by proclaiming the fullness of Yeshua our Savior. "
     />
     <div id="cta">
+      <style>
+        @scope (#cta) {
+          :scope {
+            display: inline-flex;
+            gap: var(--size-7);
+          }
+        }
+      </style>
       <a href="" class="button primary" set:text="Join Us" />
       <a href="" class="button" set:text="Learn More" />
     </div>
 
     <section>
       <div id="photo-gallery">
+        <style>
+          @scope (#photo-gallery) {
+            :scope {
+              overflow: hidden;
+              padding: var(--size-5);
+              gap: var(--size-5);
+              justify-content: center;
+              display: flex;
+              > div {
+                aspect-ratio: 9/10;
+                width: 11rem;
+                border-radius: var(--radius-2);
+                overflow: hidden;
+                flex: none;
+                > img {
+                  object-fit: cover;
+                  block-size: 100%;
+                }
+              }
+            }
+          }
+        </style>
         <div>
           <Image alt="" width="3744" height="5616" src={image_1} />
         </div>
@@ -46,6 +76,18 @@ const props = {
     <section>
       <h3 set:text="Upcoming Events" />
       <div class="card">
+        <style>
+          @scope (.card) {
+            :scope {
+              border: 1px solid var(--surface-2);
+              border-radius: var(--radius-2);
+              box-shadow: var(--shadow-2);
+              > * {
+                margin: var(--size-5);
+              }
+            }
+          }
+        </style>
         <div>
           <h3 set:text="Service" />
           <time datetime="" set:text="21 January 2024  •  11:00" />
