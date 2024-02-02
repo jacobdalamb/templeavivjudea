@@ -1,4 +1,5 @@
 ---
+import { authorName, authorUrl } from "../utils/meta";
 interface Props {
   title: string;
   description: string;
@@ -22,6 +23,8 @@ if (!ogImage) {
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="author" content={authorName} />
+    <link rel="author" href={authorUrl} />
     <meta name="generator" content={Astro.generator} />
     <title>{completeTitle}</title>
     <style is:global>
@@ -31,14 +34,6 @@ if (!ogImage) {
       @font-face {
         font-family: "Geist Variable";
         src: url("/fonts/GeistVariableVF.woff2") format("woff2");
-        font-weight: 100 900;
-        font-style: normal;
-        font-display: swap;
-      }
-
-      @font-face {
-        font-family: "Geist Mono Variable";
-        src: url("/fonts/GeistMonoVariableVF.woff2") format("woff2");
         font-weight: 100 900;
         font-style: normal;
         font-display: swap;
@@ -65,6 +60,10 @@ if (!ogImage) {
         padding: var(--size-fluid-3);
         max-width: 50rem;
         width: 100%;
+      }
+
+      main > section h3 {
+        margin-top: var(--size-8);
       }
 
       footer {

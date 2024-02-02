@@ -6,6 +6,12 @@ import image_2 from "../../public/images/image-2.webp";
 import image_3 from "../../public/images/image-3.webp";
 import image_4 from "../../public/images/image-4.webp";
 import image_5 from "../../public/images/image-5.webp";
+import { getEntry } from "astro:content";
+
+const introduction = await getEntry("posts", "introduction");
+const { Content: IntroductionContent } = await introduction.render();
+const ourMission = await getEntry("posts", "our-mission");
+const { Content: OurMissionContent } = await ourMission.render();
 
 const props = {
   title: "",
@@ -17,15 +23,14 @@ const props = {
 <Layout {...props}>
   <main>
     <h2 set:text="Welcome to Temple Aviv Judea" />
-    <p
-      set:text="Come visit us! We are located in Fullerton, CA. We worship the L-RD on Shabbat and we are committed to the Good News of Messiah by proclaiming the fullness of Yeshua our Savior. "
-    />
+    <IntroductionContent />
     <div id="cta">
       <style>
         @scope (#cta) {
           :scope {
             display: inline-flex;
             gap: var(--size-7);
+            margin-top: var(--size-7);
           }
         }
       </style>
@@ -74,83 +79,84 @@ const props = {
       </div>
     </section>
     <section>
+      <style>
+        @scope (.card-list) {
+          :scope {
+            margin-top: var(--size-7);
+            gap: var(--size-7);
+            display: flex;
+            flex-direction: column;
+          }
+        }
+      </style>
       <h3 set:text="Upcoming Events" />
-      <div class="card">
-        <style>
-          @scope (.card) {
-            :scope {
-              border: 1px solid var(--surface-2);
-              border-radius: var(--radius-2);
-              box-shadow: var(--shadow-2);
-              > * {
-                margin: var(--size-5);
+      <div class="card-list">
+        <div class="card">
+          <style>
+            @scope (.card) {
+              :scope {
+                border: 1px solid var(--surface-2);
+                border-radius: var(--radius-2);
+                box-shadow: var(--shadow-2);
+                > * {
+                  margin: var(--size-5);
+                }
               }
             }
-          }
-        </style>
-        <div>
-          <h3 set:text="Service" />
-          <time datetime="" set:text="21 January 2024  •  11:00" />
+          </style>
+          <div>
+            <h3 set:text="Service" />
+            <time datetime="" set:text="21 January 2024  •  11:00" />
+          </div>
+          <div>
+            <!-- <p>Location: Central Park</p> -->
+            <p set:text="Join us for our weekly service." />
+            <br />
+            <a href="" class="button" set:text="Watch on YouTube" />
+          </div>
+          <details name="accordion">
+            <summary
+              ><span set:text="Hador-haba Meeting" />
+               •
+              <time datetime="" set:text="14:00" /></summary
+            >
+            <p
+              set:text="Our youth group gathers after service for a comprehensive and engaging Bible discussion."
+            />
+          </details>
+          <details name="accordion">
+            <summary
+              ><span set:text="Morning Prayer" />  •  <time
+                datetime=""
+                set:text="10:00"
+              /></summary
+            >
+            <p
+              set:text="A special time before service for members and visitors to pray together for the peace of Jerusalem as well as special prayer requests."
+            />
+          </details>
+          <details name="accordion">
+            <summary set:text="Children  •  During Service" />
+            <p
+              set:text="Children have a special time during the service where they are taught important lessons from G-d."
+            />
+          </details>
         </div>
-        <div>
-          <!-- <p>Location: Central Park</p> -->
-          <p set:text="Join us for our weekly service." />
-          <br />
-          <a href="" class="button" set:text="Watch on YouTube" />
-        </div>
-        <details name="accordion">
-          <summary
-            ><span set:text="Hador-haba Meeting" />
-             • 
-            <time datetime="" set:text="14:00" /></summary
-          >
-          <p
-            set:text="Our youth group gathers after service for a comprehensive and engaging Bible discussion."
-          />
-        </details>
-        <details name="accordion">
-          <summary
-            ><span set:text="Morning Prayer" />  •  <time
-              datetime=""
-              set:text="10:00"
-            /></summary
-          >
-          <p
-            set:text="A special time before service for members and visitors to pray together for the peace of Jerusalem as well as special prayer requests."
-          />
-        </details>
-        <details name="accordion">
-          <summary set:text="Children  •  During Service" />
-          <p
-            set:text="Children have a special time during the service where they are taught important lessons from G-d."
-          />
-        </details>
-      </div>
-      <div class="card">
-        <div>
-          <h3 set:text="Purim" />
-          <time datetime="" set:text="23 March 2024" />
-        </div>
-        <div>
-          <!-- <p>Location: Central Park</p> -->
-          <p set:text="Celebrate Purim with us." />
+        <div class="card">
+          <div>
+            <h3 set:text="Purim" />
+            <time datetime="" set:text="23 March 2024" />
+          </div>
+          <div>
+            <!-- <p>Location: Central Park</p> -->
+            <p set:text="Celebrate Purim with us." />
+          </div>
         </div>
       </div>
     </section>
     <section>
-      <h3 set:text="Our Mission" />
-      <p
-        set:text="At Temple Aviv Judea, our mission is rooted in our unwavering faith and core values, underpinned by the bedrock of our beliefs in the Scriptures as the final authority in our faith and life. We uphold the significance of the one G-d, Messiah Yeshua, and the role of the Holy Spirit. Our convictions extend to our understanding of humanity's sinful nature, the redemptive sacrifice of our Lord Yeshua, and our anticipation of His second coming."
-      />
-      <p
-        set:text="Our commitment to the values of Prayer, Proclamation, and People (Three P's) further solidifies our mission. We firmly recognize the potency of prayer, and hold fast to the principles of praise, repentance, and expectation. We celebrate and proclaim our faith through commitments to authentic Jewish worship, appreciation of our Messianic Jewish identity, and the recognition of indisputable biblical truths and G-d's unshakeable covenant with Israel."
-      />
-      <p
-        set:text="In the spirit of 'Tikkun Olam' (repairing the world), we endeavor to bridge the divide between Gentile believers and Jewish people by enlightening believers about their Jewish roots and fostering reconciliation between the Body of Messiah and Traditional Judaism."
-      />
-      <p
-        set:text="We cherish our community and constantly strive to nurture each individual, aiming for spiritual growth and understanding of our Hebraic roots of faith. Dedicated to the Biblical model of leadership, we are committed to identifying and utilizing spiritual gifts and talents of both Jewish and Gentile believers for G-d's mission, always remembering the Jewish roots of our faith. Our Mishpachah (family) not only binds us together but also binds us to the world, seeking to meet needs and make a difference both locally and globally."
-      />
+      <h3 set:text={ourMission.data.title} />
+      <OurMissionContent />
     </section>
   </main>
 </Layout>
