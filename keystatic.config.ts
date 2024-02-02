@@ -3,10 +3,10 @@ import { collection, config, fields } from "@keystatic/core";
 
 export default config({
 	storage: {
-        kind: "cloud",
-        cloud: {
-            project: 'temple-aviv-judea/templeavivjudea',
-        },
+		kind: "cloud",
+		cloud: {
+			project: "temple-aviv-judea/templeavivjudea",
+		},
 	},
 	collections: {
 		posts: collection({
