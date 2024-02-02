@@ -13,9 +13,9 @@
   },
   "engines": {
     "node": "18.18.x",
-    "bun": ">=1.0.22"
+    "bun": ">=1.0.25"
   },
-  "pkgx": "node@18.18.2 bun@1.0.22",
+  "pkgx": "node@18.18.2 bun@1.0.25",
   "scripts": {
     "astro": "astro",
     "dev": "astro dev --host 127.0.0.1",
