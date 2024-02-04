@@ -53,6 +53,7 @@ for (const page of pages) {
     <style is:global>
       @import "open-props/style";
       @import "open-props/normalize";
+      @import "open-props/buttons";
 
       @font-face {
         font-family: "Geist Variable";
@@ -136,14 +137,6 @@ for (const page of pages) {
       a {
         display: inline-flex;
       }
-
-      footer {
-        background-color: var(--text-2);
-        width: 100%;
-        * {
-          color: var(--surface-2);
-        }
-      }
     </style>
   </head>
   <body>
@@ -173,15 +166,27 @@ for (const page of pages) {
       <style>
         @scope (footer) {
           :scope {
+            background-color: var(--text-2);
+            width: 100%;
             a {
               display: inline-flex;
               gap: var(--size-2);
+            }
+            *:not(button) {
+              color: var(--surface-2);
             }
           }
         }
         form {
           border: 2px solid var(--surface-2);
           border-radius: var(--radius-2);
+          padding: var(--size-3);
+          display: flex;
+          flex-direction: column;
+          gap: var(--size-3);
+          align-items: center;
+          justify-content: center;
+          text-align: center;
         }
       </style>
       <form action="/thank-you">
@@ -197,17 +202,38 @@ for (const page of pages) {
               d="M64 112c-8.8 0-16 7.2-16 16v22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1V128c0-8.8-7.2-16-16-16H64zM48 212.2V384c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V212.2L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64H448c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z"
             ></path></svg
           ><span>Stay up to date</span>
-        </span><p>
-          Get notified when I publish something new, and unsubscribe at any
-          time.
-        </p><div>
+        </span><div>
+          <label for="name">Full Name:</label>
           <input
-            type="email"
-            placeholder="Email address"
-            aria-label="Email address"
-            required=""
-          /><button type="submit">Join</button>
+            name="name"
+            id="name"
+            type="text"
+            autocomplete="name"
+            placeholder="Name"
+            required
+          />
         </div>
+        <div>
+          <label for="email">Email:</label>
+          <input
+            name="email"
+            id="email"
+            type="email"
+            placeholder="Email"
+            autocomplete="email"
+            required
+          />
+        </div>
+        <div>
+          <input type="checkbox" id="accept" name="accept" required />
+          <label for="accept"
+            >Accept <a
+              href="termsfeed-terms-conditions-pdf-english.pdf"
+              set:text="Terms and Conditons"
+            /></label
+          >
+        </div>
+        <button type="submit" set:text="Subscribe" />
       </form>
       <a href="https://www.facebook.com/templeavivjudea/"
         ><svg
