@@ -1,11 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
-import image_1 from "../../public/images/image-1.webp";
-import image_2 from "../../public/images/image-2.webp";
-import image_3 from "../../public/images/image-3.webp";
-import image_4 from "../../public/images/image-4.webp";
-import image_5 from "../../public/images/image-5.webp";
+import jerusalemBanner from "../../public/images/jerusalem-banner.webp";
 import { getEntry } from "astro:content";
 
 const introduction = await getEntry("posts", "introduction");
@@ -18,64 +14,39 @@ const props = {
   description:
     "Welcome to Temple Aviv Judea. Come visit us! We are located in Fullerton, CA. We worship the L-RD on Shabbat and we are committed to the Good News of Messiah by proclaiming the fullness of Yeshua our Savior. ",
 };
+
+let now = new Date();
+let day = now.getDay();
+let diff = 6 - day;
+
+let nextSaturday = new Date();
+nextSaturday.setUTCDate(now.getUTCDate() + diff);
+nextSaturday.setUTCHours(11, 0, 0, 0);
+
+let eventEndDate = new Date(nextSaturday.valueOf());
+eventEndDate.setUTCHours(13, 0, 0, 0);
+
+let options = { year: "numeric", month: "long", day: "numeric" };
+
+let formattedStartDate =
+  nextSaturday.toLocaleDateString("en-US", options) +
+  " • " +
+  (nextSaturday.getUTCHours() % 12 || 12) +
+  ":00AM";
+let formattedEndDate = (eventEndDate.getUTCHours() % 12 || 12) + ":00PM";
+
+let eventDate = formattedStartDate + " - " + formattedEndDate;
+let datetimeStartString = nextSaturday.toISOString().slice(0, 19);
+let datetimeEndString = eventEndDate.toISOString().slice(0, 19);
 ---
 
 <Layout {...props}>
   <main>
     <h2 set:text="Welcome to Temple Aviv Judea" />
     <IntroductionContent />
-    <div id="cta">
-      <style>
-        @scope (#cta) {
-          :scope {
-            display: inline-flex;
-            gap: var(--size-7);
-            margin-top: var(--size-7);
-          }
-        }
-      </style>
-      <a href="" class="button primary" set:text="Join Us" />
-      <a href="" class="button" set:text="Learn More" />
-    </div>
-
     <section>
       <div id="photo-gallery">
-        <style>
-          @scope (#photo-gallery) {
-            :scope {
-              overflow: hidden;
-              padding: var(--size-5);
-              gap: var(--size-5);
-              justify-content: center;
-              display: flex;
-              > div {
-                aspect-ratio: 9/10;
-                width: 11rem;
-                border-radius: var(--radius-2);
-                overflow: hidden;
-                flex: none;
-                > img {
-                  object-fit: cover;
-                  block-size: 100%;
-                }
-              }
-            }
-          }
-        </style>
-        <div>
-          <Image alt="" width="3744" height="5616" src={image_1} />
-        </div>
-        <div>
-          <Image alt="" width="3936" height="2624" src={image_2} />
-        </div>
-        <div>
-          <Image alt="" width="5760" height="3840" src={image_3} />
-        </div>
-        <div>
-          <Image alt="" width="2400" height="3000" src={image_4} />
-        </div><div>
-          <Image alt="" width="4240" height="2384" src={image_5} />
-        </div>
+        <Image alt="" src={jerusalemBanner} />
       </div>
     </section>
     <section>
@@ -106,7 +77,7 @@ const props = {
           </style>
           <div>
             <h3 set:text="Service" />
-            <time datetime="" set:text="21 January 2024  •  11:00" />
+            <time datetime={datetimeStartString} set:text={eventDate} />
           </div>
           <div>
             <!-- <p>Location: Central Park</p> -->
@@ -116,12 +87,20 @@ const props = {
           </div>
           <details name="accordion">
             <summary
-              ><span set:text="Hador-haba Meeting" />
+              ><span set:text="Hador-Haba Meeting" />
                •
               <time datetime="" set:text="14:00" /></summary
             >
             <p
               set:text="Our youth group gathers after service for a comprehensive and engaging Bible discussion."
+            />
+          </details>
+          <details name="accordion">
+            <summary
+              ><span set:text="Worship and Dance • During Service" />
+            </summary>
+            <p
+              set:text="Worship and Dance is led by Marianne and is a critical part of our service. We love worshipping the Lord with our beautiful movements."
             />
           </details>
           <details name="accordion">
@@ -136,9 +115,21 @@ const props = {
             />
           </details>
           <details name="accordion">
-            <summary set:text="Children  •  During Service" />
+            <summary set:text="Shabbat School  •  During Service" />
             <p
               set:text="Children have a special time during the service where they are taught important lessons from G-d."
+            />
+          </details>
+          <details name="accordion">
+            <summary set:text="Oneg (lunch)  •  After Service" />
+            <p
+              set:text="Oneg (lunch) is a place where members and visitors can gather to eat with one another. This is time to get to know each other and fellowship together."
+            />
+          </details>
+          <details name="accordion">
+            <summary set:text="Women's Group  •  After Service" />
+            <p
+              set:text="Women's Group is a place where women of Temple Aviv Judea and visitors alike can come together and fellowship, pray, eat, and much more!"
             />
           </details>
         </div>
