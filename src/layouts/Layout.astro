@@ -1,5 +1,7 @@
 ---
 import { authorName, authorUrl } from "../utils/meta";
+import humanizeUrl from "humanize-url";
+import { getCollection } from "astro:content";
 interface Props {
   title: string;
   description: string;
@@ -13,6 +15,27 @@ let ogImage = Astro.props.ogImage;
 const completeTitle = `${title}${title ? " • " : ""}Temple Aviv Judea`;
 if (!ogImage) {
   ogImage = new URL("/v1/generate/og/default.png", Astro.url);
+}
+
+interface PagesArray {
+  title: string;
+  url: string;
+}
+const contentPages = await getCollection("posts");
+const pages = await Astro.glob("../pages/*.astro");
+const pagesArray: PagesArray[] = [];
+
+for (const page of pages) {
+  if (page.url) {
+    if (page.url.includes("/404")) {
+      continue;
+    }
+    let pageTitle = page.url?.replace("/", "").replace("-", " ") || "";
+    let pageURL = page.url;
+    if (pageTitle) {
+      pagesArray.push({ title: pageTitle, url: pageURL });
+    }
+  }
 }
 ---
 
@@ -114,53 +137,120 @@ if (!ogImage) {
         display: inline-flex;
       }
 
-      .button {
-        align-items: center;
-        justify-content: center;
-        border-radius: var(--radius-2);
-        padding-block: var(--size-2);
-        padding-inline: var(--size-3);
-        font-weight: 500;
-        font-size: var(--size-3);
-        background-color: var(--surface-2);
-        color: var(--text-1);
-      }
-
-      .button.primary {
-        background-color: var(--text-1);
-        color: var(--surface-2);
+      footer {
+        background-color: var(--text-2);
+        width: 100%;
+        * {
+          color: var(--surface-2);
+        }
       }
     </style>
   </head>
   <body>
+    <div>
+      <a href="/" set:text="Home" />
+      <span id="bull">&bull;</span>
+      {
+        pagesArray.map((page) => (
+          <>
+            <a href={page.url} set:text={page.title} />
+            <span id="bull">&bull;</span>
+          </>
+        ))
+      }
+      <ul>
+        {
+          contentPages.map((page) => (
+            <li>
+              <a href={`/posts/${page.slug}`}>{page.data.title}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
     <slot />
     <footer>
-      <a href="https://www.facebook.com/templeavivjudea/" class="button"
+      <style>
+        @scope (footer) {
+          :scope {
+            a {
+              display: inline-flex;
+              gap: var(--size-2);
+            }
+          }
+        }
+        form {
+          border: 2px solid var(--surface-2);
+          border-radius: var(--radius-2);
+        }
+      </style>
+      <form action="/thank-you">
+        <span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="20"
+            width="20"
+            viewBox="0 0 512 512"
+            ><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+            <path
+              fill="#ffffff"
+              d="M64 112c-8.8 0-16 7.2-16 16v22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1V128c0-8.8-7.2-16-16-16H64zM48 212.2V384c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V212.2L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64H448c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z"
+            ></path></svg
+          ><span>Stay up to date</span>
+        </span><p>
+          Get notified when I publish something new, and unsubscribe at any
+          time.
+        </p><div>
+          <input
+            type="email"
+            placeholder="Email address"
+            aria-label="Email address"
+            required=""
+          /><button type="submit">Join</button>
+        </div>
+      </form>
+      <a href="https://www.facebook.com/templeavivjudea/"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-facebook"
-          ><path
-            d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+          height="20"
+          width="17.5"
+          viewBox="0 0 448 512"
+          ><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+          <path
+            fill="#ffffff"
+            d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64h98.2V334.2H109.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H255V480H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64z"
           ></path></svg
         >
-        <span set:text="Follow us on Facebook" />
+        <span set:text="Follow" />
       </a>
-      <small>
-        <span set:text="©" />
-        <time
-          datetime=`${new Date().getFullYear()}`
-          set:text=`${new Date().getFullYear()}`
-        />
-        <span set:text="Temple Aviv Judea" />
-      </small>
+      <a href=""
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="20"
+          width="20"
+          viewBox="0 0 512 512"
+          ><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+          <path
+            fill="#ffffff"
+            d="M326.7 403.7c-22.1 8-45.9 12.3-70.7 12.3s-48.7-4.4-70.7-12.3c-.3-.1-.5-.2-.8-.3c-30-11-56.8-28.7-78.6-51.4C70 314.6 48 263.9 48 208C48 93.1 141.1 0 256 0S464 93.1 464 208c0 55.9-22 106.6-57.9 144c-1 1-2 2.1-3 3.1c-21.4 21.4-47.4 38.1-76.3 48.6zM256 84c-11 0-20 9-20 20v14c-7.6 1.7-15.2 4.4-22.2 8.5c-13.9 8.3-25.9 22.8-25.8 43.9c.1 20.3 12 33.1 24.7 40.7c11 6.6 24.7 10.8 35.6 14l1.7 .5c12.6 3.8 21.8 6.8 28 10.7c5.1 3.2 5.8 5.4 5.9 8.2c.1 5-1.8 8-5.9 10.5c-5 3.1-12.9 5-21.4 4.7c-11.1-.4-21.5-3.9-35.1-8.5c-2.3-.8-4.7-1.6-7.2-2.4c-10.5-3.5-21.8 2.2-25.3 12.6s2.2 21.8 12.6 25.3c1.9 .6 4 1.3 6.1 2.1l0 0 0 0c8.3 2.9 17.9 6.2 28.2 8.4V312c0 11 9 20 20 20s20-9 20-20V298.2c8-1.7 16-4.5 23.2-9c14.3-8.9 25.1-24.1 24.8-45c-.3-20.3-11.7-33.4-24.6-41.6c-11.5-7.2-25.9-11.6-37.1-15l-.7-.2c-12.8-3.9-21.9-6.7-28.3-10.5c-5.2-3.1-5.3-4.9-5.3-6.7c0-3.7 1.4-6.5 6.2-9.3c5.4-3.2 13.6-5.1 21.5-5c9.6 .1 20.2 2.2 31.2 5.2c10.7 2.8 21.6-3.5 24.5-14.2s-3.5-21.6-14.2-24.5c-6.5-1.7-13.7-3.4-21.1-4.7V104c0-11-9-20-20-20zM48 352H64c19.5 25.9 44 47.7 72.2 64H64v32H256 448V416H375.8c28.2-16.3 52.8-38.1 72.2-64h16c26.5 0 48 21.5 48 48v64c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V400c0-26.5 21.5-48 48-48z"
+          ></path></svg
+        ><span set:text="Donate" /></a
+      >
+      <address>
+        P.O. Box 7331 Fullerton<br /> CA 92834
+      </address>
+      <small set:text="© Temple Aviv Judea" />
+      <address>
+        You can contact author at
+        <a href={authorUrl} set:text={humanizeUrl(authorUrl)} />.<br />
+        If you see any bugs, please
+        <a href="mailto:webmaster@example.com">contact webmaster</a>.<br />
+        Come visit us at:<br />
+        Temple Aviv Judea<br />
+        704 E Commonwealth Ave<br />
+        Fullerton, CA 92831<br />
+        USA
+      </address>
     </footer>
   </body>
 </html>
