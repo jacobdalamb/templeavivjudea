@@ -1,7 +1,7 @@
 {
   "name": "templeavivjudea",
   "type": "module",
-  "version": "2024.02.02",
+  "version": "2024.03.11",
   "private": true,
   "description": "",
   "license": "MIT",
@@ -13,47 +13,45 @@
   },
   "engines": {
     "node": "18.18.x",
-    "bun": ">=1.0.25"
+    "bun": ">=1.0.30"
   },
-  "pkgx": "node@18.18.2 bun@1.0.25",
+  "pkgx": "node@18.18.2 bun@1.0.30",
   "scripts": {
     "astro": "astro",
     "dev": "astro dev --host 127.0.0.1",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "format": "prettier -w . --plugin=prettier-plugin-astro && biome format --write .",
+    "format": "prettier -w . && biome format --write .",
     "lint": "biome lint . && astro check",
     "lint:fix": "biome lint --apply .",
     "check-format": "prettier --check . && biome check .",
     "check-format:fix": "biome check --apply .",
-    "precommit": "nr check-format && bun ./updateVersion.ts && nr lint && knip",
+    "precommit": "nr check-format && bun ./updateVersion.ts && nr lint",
     "predeploy": "astro build && vercel deploy"
   },
   "dependencies": {
-    "@astrojs/check": "0.4.1",
-    "@astrojs/markdoc": "^0.8.3",
-    "@astrojs/react": "^3.0.9",
-    "@astrojs/vercel": "7.1.1",
-    "@keystatic/astro": "^3.0.2",
-    "@keystatic/core": "^0.3.12",
-    "@types/react": "^18.2.52",
-    "@types/react-dom": "^18.2.18",
-    "astro": "4.3.2",
+    "@astrojs/check": "0.5.7",
+    "@astrojs/markdoc": "0.9.2",
+    "@astrojs/react": "3.1.0",
+    "@astrojs/vercel": "7.3.6",
+    "@keystatic/astro": "^5.0.0",
+    "@keystatic/core": "^0.5.2",
+    "@types/react": "^18.2.64",
+    "@types/react-dom": "^18.2.21",
+    "astro": "4.5.0",
     "dayjs": "^1.11.10",
     "humanize-url": "^3.0.0",
     "octokit": "^3.1.2",
-    "open-props": "^1.6.18",
+    "open-props": "^1.6.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "somebody": "^3.0.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.5.3",
-    "fs-extra": "^11.2.0",
-    "knip": "^4.3.1",
-    "prettier": "^3.2.5",
-    "prettier-plugin-astro": "^0.13.0"
+    "@biomejs/biome": "^1.6.0",
+    "@humanfs/node": "^0.14.1",
+    "prettier": "^3.2.5"
   }
 }

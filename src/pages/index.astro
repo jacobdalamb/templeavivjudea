@@ -1,8 +1,8 @@
 ---
-import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
-import jerusalemBanner from "../../public/images/jerusalem-banner.webp";
 import { getEntry } from "astro:content";
+import jerusalemBanner from "../../public/images/jerusalem-banner.webp";
+import Layout from "../layouts/Layout.astro";
 
 const introduction = await getEntry("posts", "introduction");
 const { Content: IntroductionContent } = await introduction.render();
@@ -10,34 +10,33 @@ const ourMission = await getEntry("posts", "our-mission");
 const { Content: OurMissionContent } = await ourMission.render();
 
 const props = {
-  title: "",
-  description:
-    "Welcome to Temple Aviv Judea. Come visit us! We are located in Fullerton, CA. We worship the L-RD on Shabbat and we are committed to the Good News of Messiah by proclaiming the fullness of Yeshua our Savior. ",
+	title: "",
+	description:
+		"Welcome to Temple Aviv Judea. Come visit us! We are located in Fullerton, CA. We worship the L-RD on Shabbat and we are committed to the Good News of Messiah by proclaiming the fullness of Yeshua our Savior. ",
 };
 
-let now = new Date();
-let day = now.getDay();
-let diff = 6 - day;
+const now = new Date();
+const day = now.getDay();
+const diff = 6 - day;
 
-let nextSaturday = new Date();
+const nextSaturday = new Date();
 nextSaturday.setUTCDate(now.getUTCDate() + diff);
 nextSaturday.setUTCHours(11, 0, 0, 0);
 
-let eventEndDate = new Date(nextSaturday.valueOf());
+const eventEndDate = new Date(nextSaturday.valueOf());
 eventEndDate.setUTCHours(13, 0, 0, 0);
 
-let options = { year: "numeric", month: "long", day: "numeric" };
+const options = { year: "numeric", month: "long", day: "numeric" };
 
-let formattedStartDate =
-  nextSaturday.toLocaleDateString("en-US", options) +
-  " • " +
-  (nextSaturday.getUTCHours() % 12 || 12) +
-  ":00AM";
-let formattedEndDate = (eventEndDate.getUTCHours() % 12 || 12) + ":00PM";
+const formattedStartDate = `${nextSaturday.toLocaleDateString(
+	"en-US",
+	options,
+)} • ${nextSaturday.getUTCHours() % 12 || 12} :00AM`;
+const formattedEndDate = `${eventEndDate.getUTCHours() % 12 || 12}:00PM`;
 
-let eventDate = formattedStartDate + " - " + formattedEndDate;
-let datetimeStartString = nextSaturday.toISOString().slice(0, 19);
-let datetimeEndString = eventEndDate.toISOString().slice(0, 19);
+const eventDate = `${formattedStartDate} - ${formattedEndDate}`;
+const datetimeStartString = nextSaturday.toISOString().slice(0, 19);
+const datetimeEndString = eventEndDate.toISOString().slice(0, 19);
 ---
 
 <Layout {...props}>
