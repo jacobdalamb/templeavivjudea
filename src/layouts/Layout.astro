@@ -96,8 +96,8 @@ for (const page of pages) {
         margin: auto auto 0 auto;
         text-align: center;
         flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
+        justify-content: safe center;
+        align-items: safe center;
         gap: var(--size-3);
         padding-block: var(--size-5)
           calc(var(--size-5) + env(safe-area-inset-bottom));
@@ -112,19 +112,19 @@ for (const page of pages) {
           flex-direction: column;
           text-align: center;
           justify-content: center;
-          align-items: center;
+          align-items: safe center;
         }
       }
 
       header {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: safe center;
         padding: var(--size-5);
 
         div {
           display: flex;
-          align-items: center;
+          align-items: safe center;
 
           svg {
             width: var(--size-7);
@@ -140,27 +140,6 @@ for (const page of pages) {
     </style>
   </head>
   <body>
-    <div>
-      <a href="/" set:text="Home" />
-      <span id="bull">&bull;</span>
-      {
-        pagesArray.map((page) => (
-          <>
-            <a href={page.url} set:text={page.title} />
-            <span id="bull">&bull;</span>
-          </>
-        ))
-      }
-      <ul>
-        {
-          contentPages.map((page) => (
-            <li>
-              <a href={`/posts/${page.slug}`}>{page.data.title}</a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
     <slot />
     <footer>
       <style>
@@ -189,7 +168,7 @@ for (const page of pages) {
 
           > div, > span {
               display: flex;
-              align-items: center;
+              align-items: safe center;
           }
 
           > div:not(:has(input[type="checkbox"])) {
