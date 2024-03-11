@@ -31,7 +31,7 @@ const options = { year: "numeric", month: "long", day: "numeric" };
 const formattedStartDate = `${nextSaturday.toLocaleDateString(
 	"en-US",
 	options,
-)} • ${nextSaturday.getUTCHours() % 12 || 12} :00AM`;
+)} • ${nextSaturday.getUTCHours() % 12 || 12}:00AM`;
 const formattedEndDate = `${eventEndDate.getUTCHours() % 12 || 12}:00PM`;
 
 const eventDate = `${formattedStartDate} - ${formattedEndDate}`;
@@ -43,11 +43,9 @@ const datetimeEndString = eventEndDate.toISOString().slice(0, 19);
   <main>
     <h2 set:text="Welcome to Temple Aviv Judea" />
     <IntroductionContent />
-    <section>
       <div id="photo-gallery">
         <Image alt="" src={jerusalemBanner} />
       </div>
-    </section>
     <section>
       <style>
         @scope (.card-list) {
